@@ -1,6 +1,30 @@
 # requiring the sinatra gem
 require "sinatra"
 require "pony"
+require "data_mapper"
+
+DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/contactor.db")
+
+class Contact
+  # Enabled DataMapper features for our class
+  include DataMapper::Resource
+
+  # Serial is for primary key with autoincrement
+  property :id,         Serial
+  property :first_name, String
+  property :last_name,  String
+  property :email,      String
+  property :department, String
+  property :urget,      Boolean
+  property :category,   String
+  property :message,    Text
+
+end
+
+DataMapper.finalize
+
+Contact.auto_upgrade!
+
 
 # Get request to the home page of the application
 get "/" do
