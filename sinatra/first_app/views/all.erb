@@ -1,0 +1,27 @@
+<table class="table table-striped table-bordered table-hover">
+  <tr>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Email</th>
+    <th></th>
+  </tr>
+  
+  <% @contacts.each do |contact| %>
+    <tr>
+      <td><%= contact.first_name %></td>
+      <td><%= contact.last_name %></td>
+      <td><%= contact.email %></td>
+      <td>
+        <a href="/contact/<%= contact.id %>" class="btn btn-primary">Show</a>
+
+        <form action="/contact/<%= contact.id %>" method="post">
+          <input type="hidden" name="_method" value="DELETE">
+          <input type="submit" class="btn btn-danger" value="Delete">
+        </form>
+
+      </td>
+
+    </tr>
+  <% end %>
+
+</table>

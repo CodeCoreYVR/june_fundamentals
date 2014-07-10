@@ -1,1 +1,73 @@
 <h1>Welcome to my site</h1>
+
+<% if @show_alert %>
+  <div class="alert alert-success" role="alert">
+    Thank you for contacting us.
+  </div>
+<% end %>
+
+<a href="javascript:void(0);" onclick="$('.alert').fadeIn()" class="btn btn-primary">Click Me</a>
+
+<div class="alert alert-danger fade in" role="alert" style="display:none;">
+  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+  <h4>Oh snap! You got an error!</h4>
+  <p>Change this and that and try again. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum.</p>
+  <p>
+    <button type="button" class="btn btn-danger">Take this action</button>
+    <button type="button" class="btn btn-default">Or do this</button>
+  </p>
+</div>
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active"><a href="#home" role="tab" data-toggle="tab">Home</a></li>
+  <li><a href="#profile" role="tab" data-toggle="tab">Profile</a></li>
+  <li><a href="#messages" role="tab" data-toggle="tab">Messages</a></li>
+  <li><a href="#settings" role="tab" data-toggle="tab">Settings</a></li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="home"> contact of home</div>
+  <div class="tab-pane" id="profile"> content of profile</div>
+  <div class="tab-pane" id="messages">content of messages</div>
+  <div class="tab-pane" id="settings">contenct of settings</div>
+</div>
+
+
+<img src="http://cdn.wonderfulengineering.com/wp-content/uploads/2014/07/HD-landscape-Photographs.png" class="img-thumbnail">
+
+<div class="row">
+  <div class="col-sm-6 col-md-9">
+
+    <i class="glyphicon glyphicon-euro"></i>
+    <p>
+     use <code>&lt;p&gt;</code> to create a paragraph
+    </p>
+
+    <p class="bg-danger">Vestibulum id ligula porta felis euismod semper. Donec ullamcorper nulla non metus auctor fringilla. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis <mark>vestibulum</mark>. Donec id elit non mi porta gravida at eget metus. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. <del>Donec id elit non mi porta gravida at eget metus</del>.
+
+    </p>
+    <blockquote>
+    <p>
+    Vestibulum id ligula porta felis euismod semper. Nulla vitae elit libero, a pharetra augue. Etiam porta sem malesuada magna mollis euismod. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+    </p>
+    </blockquote>
+    <p>
+    Nullam quis risus eget urna mollis ornare vel eu leo. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Sed posuere consectetur est at lobortis. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+
+    Maecenas faucibus mollis interdum. Donec id elit non mi porta gravida at eget metus. Donec sed odio dui. Nulla vitae elit libero, a pharetra augue. Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue. Etiam porta sem malesuada magna mollis euismod.
+    </p>
+  </div>
+
+  <div class="col-sm-6 col-md-3">
+    <b>Vestibulum id ligula porta felis euismod semper. Donec ullamcorper nulla non metus auctor fringilla. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Donec id elit non mi porta gravida at eget metus. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Donec id elit non mi porta gravida at eget metus.
+
+    Vestibulum id ligula porta felis euismod semper. Nulla vitae elit libero, a pharetra augue. Etiam porta sem malesuada magna mollis euismod. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+
+    Nullam quis risus eget urna mollis ornare vel eu leo. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Sed posuere consectetur est at lobortis. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+
+    Maecenas faucibus mollis interdum. Donec id elit non mi porta gravida at eget metus. Donec sed odio dui. Nulla vitae elit libero, a pharetra augue. Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue. Etiam porta sem malesuada magna mollis euismod.
+    </b>
+  </div>
+</div>

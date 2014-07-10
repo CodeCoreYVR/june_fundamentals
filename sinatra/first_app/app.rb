@@ -5,6 +5,10 @@ require "data_mapper"
 
 DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/contactor.db")
 
+use Rack::MethodOverride
+
+enable :sessions
+
 class Contact
   # Enabled DataMapper features for our class
   include DataMapper::Resource
@@ -15,7 +19,7 @@ class Contact
   property :last_name,  String
   property :email,      String
   property :department, String
-  property :urget,      Boolean
+  property :urgent,     Boolean
   property :category,   String
   property :message,    Text
 
@@ -25,15 +29,61 @@ DataMapper.finalize
 
 Contact.auto_upgrade!
 
+helpers do
+  def protected!
+    return if authorized?
+    headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
+    halt 401, "Not authorized\n"
+  end
+
+  def authorized?
+    @auth ||=  Rack::Auth::Basic::Request.new(request.env)
+    @auth.provided? and @auth.basic? and @auth.credentials and @auth.credentials == ['admin', 'admin']
+  end
+end
+
 
 # Get request to the home page of the application
 get "/" do
+  @show_alert = params[:show_alert]
+
+  # session[:counter] = 0 unless session[:counter]
+  session[:counter] ||= 0
+
+  session[:counter] += 1
+
   # renders a file called index.erb inside views folder
   erb :index, layout: :default
 end
 
 get "/hello" do
   "Hello CodeCore"
+end
+
+get "/all" do
+  protected!
+  # Fetches all the contacts from the Database
+  @contacts = Contact.all
+  erb :all, layout: :default
+end
+
+get "/color_pick/:color" do |color|
+  session[:color] = color
+  redirect back
+end
+
+get "/contact/:id" do |id|
+  protected!
+  @contact = Contact.get id
+  session[:last_visited_user_name] = @contact.first_name
+  erb :contact_show, layout: :default
+end
+
+delete "/contact/:id" do |id|
+  protected!
+  contact = Contact.get id
+  contact.destroy
+  redirect to("/all")
 end
 
 get "/hello/:name" do |name|
@@ -46,9 +96,21 @@ get "/contact" do
 end
 
 post "/submit_contact" do
- 
+
+  puts ">>>>>>>>>>> #{params[:urgent]}"
+
+
   subject = "category: #{params[:category]} | department: #{params[:department]}
             urget: #{params[:urgent]} | name: #{params[:first_name]} #{params[:last_name]}"
+
+  urgent_value = (params[:urgent] == "on")
+  Contact.create(first_name: params[:first_name],
+                 last_name:  params[:last_name],
+                 email:      params[:email],
+                 category:   params[:category],
+                 department: params[:department],
+                 message:    params[:message],
+                 urgent:     urgent_value)
 
   Pony.mail(to: "tam@codecore.ca",
             reply_to: params[:email],
@@ -58,15 +120,15 @@ post "/submit_contact" do
             via_options: {
               address: "smtp.gmail.com",
               port:    "587",
-              user_name: "user name here",
-              password: "password here",
+              user_name: "answerawesome",
+              password: "Sup3r$ecret",
               authentication: :plain,
               domain: "localhost",
               enable_starttls_auto: true
             })
 
 
-  "Thank you for contacting us"
+  redirect to("/?show_alert=true")
 end
 
 get "/personality_test" do

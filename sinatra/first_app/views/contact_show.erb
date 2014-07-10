@@ -1,0 +1,22 @@
+<ol class="breadcrumb">
+  <li><a href="/">Home</a></li>
+  <li><a href="/all">All Contacts</a></li>
+  <li class="active">Showing Contact</li>
+</ol>
+
+<h1>Contact Info for: <%= @contact.first_name %> <%= @contact.last_name %></h1>
+
+<p>Email: <%= @contact.email %> </p>
+<p>Department: 
+
+<% if @contact.department == "sales" %>
+  <span class="label label-default">Sales</span>
+<% elsif @contact.department == "marketing" %>
+  <span class="label label-primary">Marketing</span>
+<% elsif @contact.department == "tech" %>
+  <span class="label label-info">Technical</span>
+<% end %>
+
+</p>
+<p>Category: <%= @contact.category %></p>
+<p>Message: <%= @contact.message %></p>
